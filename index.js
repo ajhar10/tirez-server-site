@@ -32,6 +32,29 @@ async function run() {
             res.send(product);
         })
 
+        // delete user
+        app.delete('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await productCollection.deleteOne(query);
+            res.send(result);
+        })
+
+        //reduce quantity
+        app.put('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedStock = req.body;
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true };
+
+            const updateDoc = {
+                $set: {
+                    quantity: updatedStock.quantity,
+                },
+            };
+            const result = await productCollection.updateOne(filter, updateDoc, options);
+            res.send(result);
+        })
 
     } finally {
 
