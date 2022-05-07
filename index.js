@@ -9,7 +9,7 @@ app.use(cors())
 app.use(express.json());
 
 //From Mongodb Connect
-const uri = "mongodb+srv://ajhar41:hHNLa4RoV7D5rBge@cluster0.vm5vj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.vm5vj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
